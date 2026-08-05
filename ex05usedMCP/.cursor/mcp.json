@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": ["--with", "mcp~=1.28", "mcp-server-fetch"],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "yfinance": {
+      "command": "uvx",
+      "args": [
+        "--with",
+        "mcp~=1.28",
+        "--from",
+        "git+https://github.com/Alex2Yang97/yahoo-finance-mcp",
+        "yahoo-finance-mcp"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "korea-stock": {
+      "command": "npx",
+      "args": ["-y", "@drfirst/korea-stock-mcp"]
+    },
+    "mcp-naver-news": {
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\02Workspaces\\99CursorAI\\ex05usedMCP\\scripts\\run-mcp-naver-news.ps1"
+      ]
+    }
+  }
+}
