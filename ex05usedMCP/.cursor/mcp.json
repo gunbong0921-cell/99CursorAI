@@ -33,6 +33,10 @@
         "-File",
         "C:\\02Workspaces\\99CursorAI\\ex05usedMCP\\scripts\\run-mcp-naver-news.ps1"
       ]
+    },
+    "korean-news": {
+      "transport": "streamable-http",
+      "url": "https://korean-news-mcp.onrender.com/mcp"
     }
   }
 }
