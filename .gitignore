@@ -1,2 +1,10 @@
 # Google Cloud service account keys (never commit)
 symmetric-lore-*.json
+my-cursor-mcp-*.json
+
+# OAuth credentials (never commit)
+credentials.json
+
+# OAuth token (never commit)
+token.json
+google-docs-mcp/

@@ -1,0 +1,25 @@
+{
+  "name": "ex06md-to-google-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "once": "tsx src/index.ts once",
+    "watch": "tsx src/index.ts watch",
+    "setup": "tsx src/setup.ts",
+    "auth": "node scripts/oauth-auth.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "chokidar": "^4.0.3",
+    "dotenv": "^16.4.7",
+    "googleapis": "^148.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

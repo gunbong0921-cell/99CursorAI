@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+job/processing/
+job/completed/
+job/failed/
+*.log

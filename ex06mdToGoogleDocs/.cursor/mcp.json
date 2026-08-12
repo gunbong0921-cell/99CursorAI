@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "google-drive-docs": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\02Workspaces\\99CursorAI\\ex06mdToGoogleDocs\\scripts\\run-google-docs-mcp.mjs"
+      ],
+      "env": {
+        "REPO_ROOT": "C:\\02Workspaces\\99CursorAI",
+        "XDG_CONFIG_HOME": "C:\\02Workspaces\\99CursorAI",
+        "NPX_COMMAND": "C:\\Program Files\\nodejs\\npx.cmd",
+        "PYTHONIOENCODING": "utf-8"
+      },
+      "enabled": true
+    }
+  }
+}
