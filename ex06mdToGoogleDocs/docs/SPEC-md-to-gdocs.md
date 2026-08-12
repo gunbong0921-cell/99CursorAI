@@ -10,6 +10,8 @@
 
 `job/` 폴더의 Markdown 파일을 감지·변환하여 Google Docs에 자동 등록하고, 성공 시 `job/completed/`로 이동한다.
 
+**Watch 모드** (`npm run watch`) 실행 중에는 `job/`에 `.md` 파일을 **복사·저장**하면 chokidar가 자동 감지하여 즉시 변환한다. 별도로 `npm run once`를 실행할 필요 없다.
+
 ### 1.2 기술 스택
 
 | 항목 | 내용 |
@@ -107,7 +109,7 @@ flowchart TB
 | `mcpClient.ts` | Docs MCP spawn / callTool |
 | `pipeline.ts` | 단일 파일 처리 |
 | `moveFile.ts` | completed/failed 이동, manifest |
-| `watcher.ts` | `job/*.md` 감시 |
+| `watcher.ts` | `job/` 직하위 `.md` 실시간 감시 (copy → auto convert) |
 
 ---
 
@@ -130,6 +132,41 @@ ex06mdToGoogleDocs/
 3. Docs 등록 성공 후 `job/completed/`로 이동
 4. 실패 시 `job/failed/` + `{name}.error.log`
 5. manifest: `{ filename, docId, docUrl, title, processedAt, authMode }`
+
+### 4.1 Watch 모드 (자동 감지)
+
+`job/`에 MD 파일을 복사하면 자동 변환되도록 **watch 모드**를 상시 실행한다.
+
+```powershell
+cd ex06mdToGoogleDocs
+npm run watch
+```
+
+**동작**
+
+| 단계 | 내용 |
+|------|------|
+| 1 | `chokidar`가 `job/` 직하위만 감시 (`depth: 0`) |
+| 2 | `.md` 파일 **add** 또는 **change** 이벤트 발생 |
+| 3 | `awaitWriteFinish`(1초)로 복사·저장 완료 대기 |
+| 4 | `pipeline` → Google Docs 생성 → `job/completed/` 이동 |
+| 5 | 실패 시 `job/failed/` + `.error.log` |
+
+**감시 제외**
+
+- `job/processing/`, `job/completed/`, `job/failed/` 하위 파일
+- `job/` 직하위가 아닌 경로 (하위 폴더 내 `.md`)
+
+**사용 예**
+
+1. 터미널에서 `npm run watch` 실행 (프로세스 유지)
+2. 탐색기·에디터에서 `docs/SPEC-md-to-gdocs.md` 등을 `job/`에 복사
+3. 콘솔에 `[watch] detected add: …` → `[pipeline] completed …` 로그 확인
+4. `job/completed/.manifest.json`에서 Doc URL 확인
+
+**종료:** `Ctrl+C` (watcher graceful shutdown)
+
+**동시 처리:** 동일 파일 중복 이벤트는 `processing` Set으로 직렬화. 서로 다른 파일은 순차 처리.
 
 ---
 
@@ -174,7 +211,7 @@ OAuth 토큰 저장 위치: `<repo루트>/token.json` (MCP 내부 경로 `google
 | 1 | TS scaffold |
 | 2 | Doc 생성 + MD 삽입 |
 | 3 | completed + manifest |
-| 4 | watch 모드 |
+| 4 | watch 모드 (`job/` copy 자동 감지·변환) |
 | 5 | OAuth/SA 전환 |
 | 6 | failed 로그 |
 
@@ -182,7 +219,8 @@ OAuth 토큰 저장 위치: `<repo루트>/token.json` (MCP 내부 경로 `google
 
 ## 9. 테스트
 
-- `job/test-spec-excerpt.md` E2E
+- `job/test-spec-excerpt.md` E2E (`npm run once`)
+- watch 모드: `npm run watch` 실행 후 `job/`에 `.md` 복사 → 자동 변환 확인
 - SA / OAuth 각 1회
 - processing lock (동시 2파일)
 

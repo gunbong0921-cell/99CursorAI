@@ -7,8 +7,17 @@ async function main(): Promise<void> {
   await ensureJobDirs();
 
   if (mode === "watch") {
-    startWatcher();
-    console.log("[main] watch mode started");
+    const watcher = startWatcher();
+    console.log("[main] watch mode started — drop .md files into job/ to convert");
+
+    const shutdown = async () => {
+      console.log("\n[main] shutting down watcher...");
+      await watcher.close();
+      process.exit(0);
+    };
+
+    process.on("SIGINT", () => void shutdown());
+    process.on("SIGTERM", () => void shutdown());
     return;
   }
 
