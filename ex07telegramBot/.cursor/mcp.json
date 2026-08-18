@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "telegram": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "telegram-bot-mcp-server"
+      ],
+      "envFile": "${workspaceFolder}/.env/.env"
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": ["--with", "mcp~=1.28", "mcp-server-fetch"],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "yfinance": {
+      "command": "uvx",
+      "args": [
+        "--with",
+        "mcp~=1.28",
+        "--from",
+        "git+https://github.com/Alex2Yang97/yahoo-finance-mcp",
+        "yahoo-finance-mcp"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    }
+  }
+}

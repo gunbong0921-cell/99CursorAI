@@ -1,0 +1,22 @@
+{
+  "name": "ex07-telegram-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "@cursor/sdk": "^1.0.28",
+    "@types/node": "^26.2.0",
+    "dotenv": "^17.4.2",
+    "grammy": "^1.45.1",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}
