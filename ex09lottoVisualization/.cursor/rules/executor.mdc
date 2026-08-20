@@ -1,0 +1,11 @@
+---
+alwaysApply: true
+---
+
+# 파이썬 실행 규칙
+
+- 파이썬은 항상 프로젝트 루트의 `.venv` 가상 환경에서 실행합니다.
+- `.venv`가 없으면 사용자 별도 지시 없이 먼저 `python -m venv .venv`로 생성한 뒤 작업을 진행합니다.
+- 패키지 설치는 `.venv\Scripts\pip`(Windows) 또는 `.venv/bin/pip`(macOS/Linux)를 사용합니다.
+- 글로벌 Python/pip는 사용하지 않습니다.
+- 프롬프트를 수행할 때 만들어지는 python 파일은 수행 후 삭제하지 않고 보관합니다. 
